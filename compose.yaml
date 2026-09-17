@@ -1,0 +1,25 @@
+# Local test topology. A single service mirrors the Railway service:
+#   app -> GitHub Stars Manager (the official full-stack image: one Node/Express process serves the SPA, API and
+#          MCP endpoints), SQLite on a /app/data volume. Bearer auth via API_SECRET.
+# The template runs the official image unmodified, so there is nothing to build.
+name: github-stars-manager-railway-test
+
+networks:
+  default:
+    name: github-stars-manager-railway-test
+
+services:
+  app:
+    image: ghcr.io/amintacccp/github-stars-manager-fullstack:v0.8.1@sha256:c718c2d264d3ebb181661b52725fb29712016a73cd13cac88084cb9aeff30d1f
+    restart: unless-stopped
+    environment:
+      PORT: '3000'
+      API_SECRET: ${GSM_TEST_API_SECRET:-local-test-only-api-secret-000000000000}
+      ENCRYPTION_KEY: ${GSM_TEST_ENCRYPTION_KEY:-00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff}
+    ports:
+      - '127.0.0.1:${GSM_TEST_PORT:-13000}:3000'
+    volumes:
+      - data:/app/data
+
+volumes:
+  data:
