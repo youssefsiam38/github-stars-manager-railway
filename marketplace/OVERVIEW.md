@@ -29,7 +29,7 @@ the port and health check wired. It runs the official image unmodified, pinned b
 - To use the AI features and import your stars you provide your own GitHub token and an AI provider key, entered in
   the app.
 
-## Deployment Dependencies
+### Deployment Dependencies
 
 - GitHub Stars Manager: https://github.com/AmintaCCCP/GithubStarsManager (MIT)
 - Template repository and tests: https://github.com/youssefsiam38/github-stars-manager-railway
